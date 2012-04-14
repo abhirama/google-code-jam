@@ -10,20 +10,20 @@ def helper(no, lowBnd, hgBnd):
     con = ln
     end = 1
 
-    mp = {long(no): 1}
+    lst = [long(no)]
 
     while con > 1:
         genNo = long(no[-end:] + no[0:(ln - end)])
-        if (genNo >= lowBnd) and (genNo < hgBnd) and (genNo not in mp):
-            mp[genNo] = 1
+        if (genNo >= lowBnd) and (genNo < hgBnd) and (genNo not in lst):
+            lst.append(genNo)
         con = con - 1
         end = end + 1
 
     count = 0
-    for comb in itertools.combinations(mp.keys(), 2):
+    for comb in itertools.combinations(lst, 2):
         count = count + 1    
 
-    return (count, mp)
+    return (count, lst)
 
 
 lines = sys.stdin.readlines()
@@ -48,13 +48,13 @@ for line in lines[1:]:
 
         if st in seen:
             if no not in seen[st]:
-                retCount, mp = helper(strNo, low, high)
+                retCount, lst = helper(strNo, low, high)
                 count = retCount + count
-                seen[st].update(mp)
+                seen[st] = seen[st] + lst
         else:
-            retCount, mp = helper(strNo, low, high)
+            retCount, lst = helper(strNo, low, high)
             count = retCount + count
-            seen[st] = mp 
+            seen[st] = lst 
 
     print prntFormat.format(case, count) 
     case = case + 1
