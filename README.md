@@ -1,2 +1,1 @@
-google-code-jam
-===============
+Solutions for the problems in google code jam 2012.
